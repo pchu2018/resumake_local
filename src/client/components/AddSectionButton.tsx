@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { createSection } from '../actions/actions';
-import { saveSection } from '../api/storageApi';
+import { postSection } from '../api/storageApi';
 import { generateSectionId } from '../../utils';
 import { SectionType } from '../../../types';
 
@@ -16,7 +16,7 @@ export default function AddSectionButton() {
       bullets: 'ADD CONTENT'
     }
     // store component to localstorage
-    saveSection(newSection);
+    postSection(newSection);
     // dispatch new empty section to store with retrieved id
     dispatch(createSection(newSection));
 

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { ProfileType } from "../../../types";
 import { updateProfile } from "../actions/actions";
-import { saveProfile } from "../api/storageApi";
+import { postProfile } from "../api/storageApi";
 
 interface ProfileProps {
   info: ProfileType
@@ -25,24 +25,19 @@ export default function ProfileInformation( { info }: ProfileProps ) {
   }
   const handleButtonClick = () => {
     setEditing(false);
+    // generate profile
+    const profile = {
+      name,
+      location,
+      linkedIn,
+      jobTitle,
+      email,
+      additional
+    }
     // dispatch to store
-    dispatch(updateProfile({
-      name,
-      location,
-      linkedIn,
-      jobTitle,
-      email,
-      additional
-    }));
+    dispatch(updateProfile(profile));
     // save to storage
-    saveProfile({
-      name,
-      location,
-      linkedIn,
-      jobTitle,
-      email,
-      additional
-    })
+    postProfile(profile)
   }
 
   const blank = (

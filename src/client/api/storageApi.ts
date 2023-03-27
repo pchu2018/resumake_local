@@ -31,15 +31,19 @@ export function getInitialState(): UserData {
     }
 }
 
-export function saveProfile(profile: ProfileType) {
+export function postProfile(profile: ProfileType) {
   setStorageString('profile', profile);
 }
 
-export function saveSection(section: SectionType) {
+export function postSection(section: SectionType) {
   // pull current sections array
   const sections = getStorageParse('sections') || [];
   console.log(sections)
   // push new section
   sections.push(section);
   setStorageString('sections', sections);
+}
+
+export function patchSection(section: SectionType) {
+
 }

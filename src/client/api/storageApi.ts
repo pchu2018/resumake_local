@@ -18,7 +18,7 @@ export function getInitialState(): UserData {
     const resumes = getStorageParse('resumes');
     
     const sections = getStorageParse('sections');
-    const defaultSection: SectionType[] = [{sectionId: 'default', header:'NEW HEADER', bullets:'ADD CONTENT'}]
+    const defaultSection: SectionType[] = [];
     //pull latest resume to set as current
     const currentResume = resumes?.sort((a: ResumeType, b: ResumeType) => a.lastModified > b.lastModified ? 1 : -1);
 
@@ -45,5 +45,16 @@ export function postSection(section: SectionType) {
 }
 
 export function patchSection(section: SectionType) {
-
+  console.log('patchSection start')
+  // pull current sections array
+  const sections: SectionType[] = getStorageParse('sections');
+   console.log('pulled from storage', sections)
+  // find sectionId
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].sectionId == section.sectionId) {
+      sections[i] = section;
+      break;
+    } 
+  }
+  setStorageString('sections', sections);
 }

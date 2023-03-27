@@ -67,7 +67,7 @@ const resumeReducer = createReducer(initialState, (builder) => {
       for (let i = 0; i < sections.length; i++) {
         console.log(sections[i].sectionId)
         if(sections[i].sectionId == action.payload.sectionId) {
-          console.log(sections[i])
+          console.log('matched section', sections[i])
           state.sections[i] = action.payload;
           break;
         } else console.log('no section found')

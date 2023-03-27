@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 // internal imports
 import { SectionType } from '../../../types';
 import { updateSection } from '../actions/actions';
+import { patchSection } from '../api/storageApi';
 // components
 import AddSectiontoResume from './AddSectiontoResume';
 
@@ -19,8 +20,9 @@ export default function Section({ sectionId, header, bullets }: SectionType) {
   const handleChange = () => {
     // dispatch new Section object to store
     const payload = {sectionId, header: headerContent, bullets: bulletContent};
-    dispatch(updateSection(payload));
     // send post request to api
+    patchSection(payload);
+    dispatch(updateSection(payload));
   }
 
   // create listener for when click occurs outside of component
@@ -46,7 +48,7 @@ export default function Section({ sectionId, header, bullets }: SectionType) {
   const tailwind = 'flex my-2 max-w-xs'
 
   const staticData = <div  onClick={() => setEditing(true)}><p className='font-bold'>{headerContent}</p>{bulletContent}</div>;
-  const editable = <div ref={ref}><input placeholder={headerContent} onChange={event => {setHeaderContent(event.target.value); console.log(headerContent)}}/>
+  const editable = <div ref={ref}><input placeholder={headerContent} onChange={event => {setHeaderContent(event.target.value)}}/>
                     <br/><input placeholder={bulletContent} onChange={event => setBulletContent(event.target.value)}/></div>
 
   return (

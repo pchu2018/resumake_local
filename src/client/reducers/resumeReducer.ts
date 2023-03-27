@@ -57,7 +57,7 @@ const resumeReducer = createReducer(initialState, (builder) => {
       state.profile = action.payload;
     })
     .addCase(actions.createSection, (state, action) => {
-      state.sections.push({sectionId: action.payload, header: 'HEADER', bullets: 'ADD CONTENT'});
+      state.sections.push(action.payload);
     })
     .addCase(actions.updateSection, (state, action) => {
       const { sections } = current(state);

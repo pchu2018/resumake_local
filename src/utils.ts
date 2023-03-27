@@ -31,3 +31,7 @@ export function getStorageParse(key: string) {
 export function setStorageString(key: string, object: unknown) {
   localStorage.setItem(key, JSON.stringify(object));
 }
+
+export function generateSectionId() {
+  return 'sec' + new Date().getTime();
+}

@@ -13,12 +13,12 @@ export function getInitialState(): UserData {
     const profile = getStorageParse('profile');
 
     const currentGrids = getStorageParse('currentGrids');
-    const defaultGrid: GridType[] = [{gridId: 'default', resumeId: 'default', sectionId: 'default', y_coordinate:0, x_coordinate:0}]
+    const defaultGrid: GridType[] = []
     
     const resumes = getStorageParse('resumes');
     
     const sections = getStorageParse('sections');
-    const defaultSection: SectionType[] = [{sectionId: 'default', header:'Add header', bullets:'Add content'}]
+    const defaultSection: SectionType[] = [{sectionId: 'default', header:'NEW HEADER', bullets:'ADD CONTENT'}]
     //pull latest resume to set as current
     const currentResume = resumes?.sort((a: ResumeType, b: ResumeType) => a.lastModified > b.lastModified ? 1 : -1);
 
@@ -33,4 +33,13 @@ export function getInitialState(): UserData {
 
 export function saveProfile(profile: ProfileType) {
   setStorageString('profile', profile);
+}
+
+export function saveSection(section: SectionType) {
+  // pull current sections array
+  const sections = getStorageParse('sections') || [];
+  console.log(sections)
+  // push new section
+  sections.push(section);
+  setStorageString('sections', sections);
 }

@@ -1,13 +1,6 @@
 import { setStorageString, getStorageParse } from "../../utils";
 import { UserData, ResumeType, ProfileType, GridType, SectionType } from "../../../types";
 
-export function updateGrid(items: string[]) {
-  // retrieve current grids
-  const {grids} = getStorageParse('current');
-
-
-}
-
 export function getInitialState(): UserData {
     // collect initial data from localstorage
     const profile = getStorageParse('profile');
@@ -63,10 +56,17 @@ export function useResumeSection(grid: string) {
   // add section to grid array
   const currentResume: ResumeType = getStorageParse('currentResume');
   currentResume.currentGrids.push(grid);
-  console.log(currentResume)
   setStorageString('currentResume', currentResume);
 }
 
-export function patchGrids(grids: GridType[]) {
+export function patchGrids(grids: string[]) {
+  const currentResume: ResumeType = getStorageParse('currentResume');
+  currentResume.currentGrids = grids;
+  setStorageString('currentResume', currentResume);
+}
 
+export function postResume(resume: ResumeType) {
+  const resumes: ResumeType[] = getStorageParse('resumes');
+  resumes.push(resume);
+  setStorageString('resumes', resumes);
 }

@@ -32,10 +32,10 @@ export function setStorageString(key: string, object: unknown) {
   localStorage.setItem(key, JSON.stringify(object));
 }
 
-export function generateSectionId() {
+export function generateSectionId(): string {
   return 'sec' + new Date().getTime();
 }
 
-export function generateGridId() {
-  return 'grid' + new Date().getTime();
+export function generateResumeId(): string {
+  return 'resume' + new Date().getTime();
 }

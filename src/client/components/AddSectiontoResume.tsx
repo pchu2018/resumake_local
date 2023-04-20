@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 // internal import
 import { GridType } from '../../../types';
 import { useSection } from '../actions/actions';
-import { generateGridId } from '../../utils';
 import { useResumeSection } from '../api/storageApi';
 
 export default function AddSectiontoResume({sectionId}: {sectionId: string}) {

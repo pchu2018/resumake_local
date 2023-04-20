@@ -7,7 +7,7 @@ import ResumeSection from '../components/ResumeSection';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { SectionType } from '../../../types';
-import { updateGrid } from '../api/storageApi';
+import { patchGrids } from '../api/storageApi';
 
 
 export default function ResumeContainer() {
@@ -51,7 +51,8 @@ export default function ResumeContainer() {
   
   // post updated items list to local storage
   const updateStorage = (items: string[]) => {
-    
+    // send items to storage
+    patchGrids(items);
   };
 
   // memo-ize throttled function
@@ -80,12 +81,14 @@ export default function ResumeContainer() {
   }
 
   return (
-    <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'><h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <SortableContext items={items}>
-        {resumeSections}
-      </SortableContext>
-    </DndContext>
+    <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'>
+      <h3>{currentResume.title}</h3>
+      <h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <SortableContext items={items}>
+          {resumeSections}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

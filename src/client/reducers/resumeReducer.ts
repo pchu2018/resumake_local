@@ -44,7 +44,7 @@ const resumeReducer = createReducer(initialState, (builder) => {
       return state = action.payload;
     })
     .addCase(actions.createResume, (state, action) => {
-      state.currentResume = null;
+      state.currentResume = action.payload;
     })
     .addCase(actions.updateResume, (state, action) => {
       state.currentResume = action.payload;

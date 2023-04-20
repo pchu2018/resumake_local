@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // internal import
 import { GridType } from '../../../types';
 import { useSection } from '../actions/actions';
@@ -7,6 +7,7 @@ import { useResumeSection } from '../api/storageApi';
 
 export default function AddSectiontoResume({sectionId}: {sectionId: string}) {
   const dispatch = useDispatch();
+  const currentResume = useSelector(state => state.currentResume)
   const [hover, setHover] = useState(false);
 
   const defaultIcon = '>';

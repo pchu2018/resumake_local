@@ -2,9 +2,11 @@ import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import { useState, useEffect, useRef, useMemo} from 'react';
+import { useSelector } from 'react-redux';
+// internal imports
 import { throttle } from '../../utils';
 import ResumeSection from '../components/ResumeSection';
-import { useSelector } from 'react-redux';
+import CreateResumeButton from '../components/CreateResumeButton';
 import { RootState } from '../store';
 import { SectionType } from '../../../types';
 import { patchGrids } from '../api/storageApi';
@@ -89,6 +91,7 @@ export default function ResumeContainer() {
           {resumeSections}
         </SortableContext>
       </DndContext>
+      <CreateResumeButton />
     </div>
   );
 }

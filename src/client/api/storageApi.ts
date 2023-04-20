@@ -53,8 +53,10 @@ export function patchSection(section: SectionType) {
 }
 
 export function useResumeSection(grid: string) {
+  // find current resume in resumes array
+  const currentResume: ResumeType = getStorageParse('resumes');
   // add section to grid array
-  const currentResume: ResumeType = getStorageParse('currentResume');
+  
   currentResume.currentGrids.push(grid);
   setStorageString('currentResume', currentResume);
 }
@@ -66,7 +68,7 @@ export function patchGrids(grids: string[]) {
 }
 
 export function postResume(resume: ResumeType) {
-  const resumes: ResumeType[] = getStorageParse('resumes');
+  const resumes: ResumeType[] = getStorageParse('resumes') || [];
   resumes.push(resume);
   setStorageString('resumes', resumes);
 }

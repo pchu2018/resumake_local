@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSectionPayload } from '../actions/actionTypes';
+// internal import
+import { GridType } from '../../../types';
 import { useSection } from '../actions/actions';
+import { generateGridId } from '../../utils';
+import { useResumeSection } from '../api/storageApi';
 
-export default function AddSectiontoResume({databaseId}: {databaseId: string}) {
+export default function AddSectiontoResume({sectionId}: {sectionId: string}) {
   const dispatch = useDispatch();
   const [hover, setHover] = useState(false);
 
@@ -12,10 +15,10 @@ export default function AddSectiontoResume({databaseId}: {databaseId: string}) {
 
   // dispatch current section to store to add to resume
   const handleClick = () => {
-    // fetch new grid item to api and return back gridId
-    const mockGrid = (Math.random()*10).toString();
-    const mockPayload: useSectionPayload = {gridId: mockGrid, sectionId: databaseId};
-    dispatch(useSection(mockPayload));
+    // dispatch to store
+    dispatch(useSection(sectionId));
+    // update storage
+    useResumeSection(sectionId);
   }
 
   return (

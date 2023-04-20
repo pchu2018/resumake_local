@@ -54,7 +54,7 @@ export default function Section({ sectionId, header, bullets }: SectionType) {
   return (
     <div className={tailwind}>
       {editing ? editable : staticData}
-      <AddSectiontoResume databaseId={sectionId}/>
+      <AddSectiontoResume sectionId={sectionId}/>
     </div>
   )
 }

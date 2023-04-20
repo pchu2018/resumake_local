@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <div >
-      <h1 className="m-4 text-center font-mono text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">resumake</h1>
+      <h1 className="m-4 text-center text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">resumake</h1>
       <MasterEditorContainer/>
     </div>
   )

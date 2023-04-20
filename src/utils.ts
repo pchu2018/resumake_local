@@ -35,3 +35,7 @@ export function setStorageString(key: string, object: unknown) {
 export function generateSectionId() {
   return 'sec' + new Date().getTime();
 }
+
+export function generateGridId() {
+  return 'grid' + new Date().getTime();
+}

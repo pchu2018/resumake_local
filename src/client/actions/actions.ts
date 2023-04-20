@@ -1,6 +1,6 @@
 // import actionType constants
 import { createAction } from '@reduxjs/toolkit';
-import {ResumeType, SectionType, UserData, ProfileType} from '../../../types';
+import {ResumeType, SectionType, UserData, ProfileType, GridType} from '../../../types';
 import { useSectionPayload } from './actionTypes';
 
 // actionTypes need 
@@ -14,6 +14,6 @@ export const createSection = createAction<SectionType>('CREATE_SECTION');
 export const updateSection = createAction<SectionType>('UPDATE_SECTION');
 export const deleteSection = createAction<string>('DELETE_SECTION');
 
-export const useSection = createAction<useSectionPayload>('USE_SECTION');
+export const useSection = createAction<string>('USE_SECTION');
 // export const loadComponent = createAction<ComponentType>('LOAD_COMPONENT');
 export const updateProfile = createAction<ProfileType>('UPDATE_PROFILE');

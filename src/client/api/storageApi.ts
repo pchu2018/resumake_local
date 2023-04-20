@@ -11,9 +11,6 @@ export function updateGrid(items: string[]) {
 export function getInitialState(): UserData {
     // collect initial data from localstorage
     const profile = getStorageParse('profile');
-
-    const currentGrids = getStorageParse('currentGrids');
-    const defaultGrid: GridType[] = []
     
     const resumes = getStorageParse('resumes');
     
@@ -21,11 +18,14 @@ export function getInitialState(): UserData {
     const defaultSection: SectionType[] = [];
     //pull latest resume to set as current
     const currentResume = resumes?.sort((a: ResumeType, b: ResumeType) => a.lastModified > b.lastModified ? 1 : -1);
+    // create default current
+    const defaultCurrent: ResumeType = {
+      resumeId: 'default', title: 'My Resume', lastModified: new Date().toString(), currentGrids: []
+    }
 
     return {
       profile,
-      currentGrids: currentGrids || defaultGrid,
-      currentResume,
+      currentResume: currentResume || defaultCurrent,
       resumes,
       sections: sections || defaultSection
     }
@@ -57,4 +57,16 @@ export function patchSection(section: SectionType) {
     } 
   }
   setStorageString('sections', sections);
+}
+
+export function useResumeSection(grid: string) {
+  // add section to grid array
+  const currentResume: ResumeType = getStorageParse('currentResume');
+  currentResume.currentGrids.push(grid);
+  console.log(currentResume)
+  setStorageString('currentResume', currentResume);
+}
+
+export function patchGrids(grids: GridType[]) {
+
 }

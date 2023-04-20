@@ -1,15 +1,11 @@
-// just for reference
+// library import
 import { createReducer, current } from '@reduxjs/toolkit';
+// internal import
 import * as actions from '../actions/actions';
 import { ResumeType, SectionType, GridType, UserData } from '../../../types';
 
 const initialState: UserData = {
-  currentResume: {resumeId: '1', title: 'My Resume', lastModified: new Date().toString()},
-  currentGrids: [
-    {gridId: '1', resumeId: '1', sectionId: 'test', y_coordinate: 0, x_coordinate: 7}, 
-    {gridId: '2', resumeId: '1', sectionId: 'test1', y_coordinate: 0, x_coordinate: 8},
-    {gridId: '3', resumeId: '1', sectionId: 'test2', y_coordinate: 0, x_coordinate: 9}
-  ],
+  currentResume: {resumeId: '1', title: 'My Resume', lastModified: new Date().toString(), currentGrids: [  ]},
   resumes: [],
   sections: [
     {
@@ -75,15 +71,7 @@ const resumeReducer = createReducer(initialState, (builder) => {
       };
     })
     .addCase(actions.useSection, (state, action) => {
-      const { currentResume } = current(state);
-      const newGrid: GridType = {
-        resumeId: currentResume.resumeId,
-        gridId: action.payload.gridId,
-        sectionId: action.payload.sectionId,
-        y_coordinate: 0,
-        x_coordinate: 0
-      };
-      state.currentGrids.push(newGrid);
+      state.currentResume.currentGrids.push(action.payload);
     })
 });
 

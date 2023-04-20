@@ -26,13 +26,13 @@ export default function ResumeContainer() {
 
   const isInitialMount = useRef(true);
   // access resume id by initial state -> current resume 
-  const { currentResume, currentGrids, profile } = useSelector((state:RootState) => state.initialState);
+  const { currentResume, profile } = useSelector((state:RootState) => state.initialState);
   
   // initializing items for sortable context -> update context when currentGrids is changed
   useEffect(() => {    
-    const componentIds = currentGrids?.map(grid => grid.sectionId)
+    const componentIds = currentResume.currentGrids
     setItems(componentIds);
-  }, [currentGrids])
+  }, [currentResume])
 
   // throttle for update resume
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function ResumeContainer() {
     }));
   //  }
    
-  }, [items, sections, currentGrids])
+  }, [items, sections, currentResume])
   
   // post updated items list to local storage
   const updateStorage = (items: string[]) => {

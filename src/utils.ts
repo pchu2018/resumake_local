@@ -23,3 +23,19 @@ export function throttle<Args extends unknown[]>(fn: (...args: Args) => void, co
 
   return throttled;
 }
+
+export function getStorageParse(key: string) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+export function setStorageString(key: string, object: unknown) {
+  localStorage.setItem(key, JSON.stringify(object));
+}
+
+export function generateSectionId(): string {
+  return 'sec' + new Date().getTime();
+}
+
+export function generateResumeId(): string {
+  return 'resume' + new Date().getTime();
+}

@@ -1,4 +1,5 @@
 import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
+<<<<<<< HEAD
 import {arrayMove, SortableContext, useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import { useState, useEffect, useRef, useMemo} from 'react';
@@ -7,6 +8,19 @@ import ResumeSection from '../components/ResumeSection';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { SectionType } from '../../../types';
+=======
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
+import {CSS} from '@dnd-kit/utilities';
+import { useState, useEffect, useRef, useMemo} from 'react';
+import { useSelector } from 'react-redux';
+// internal imports
+import { throttle } from '../../utils';
+import ResumeSection from '../components/ResumeSection';
+import CreateResumeButton from '../components/CreateResumeButton';
+import { RootState } from '../redux/store';
+import { SectionType } from '../../../types';
+import { patchGrids } from '../../api/storageApi';
+>>>>>>> dev
 
 
 export default function ResumeContainer() {
@@ -25,6 +39,7 @@ export default function ResumeContainer() {
 
   const isInitialMount = useRef(true);
   // access resume id by initial state -> current resume 
+<<<<<<< HEAD
   const { currentResume, userId, currentGrids, profile } = useSelector((state:RootState) => state.initialState);
   
   // initializing items for sortable context
@@ -35,10 +50,22 @@ export default function ResumeContainer() {
   },[currentGrids])
 
   // throttle for update reumse
+=======
+  const { currentResume, profile } = useSelector((state:RootState) => state.initialState);
+  
+  // initializing items for sortable context -> update context when currentGrids is changed
+  useEffect(() => {    
+    const componentIds = currentResume.currentGrids
+    setItems(componentIds);
+  }, [currentResume])
+
+  // throttle for update resume
+>>>>>>> dev
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
    } else {
+<<<<<<< HEAD
        // Your useEffect code here to be run on update
        throttledFetch(items);
    }
@@ -81,6 +108,26 @@ export default function ResumeContainer() {
 
   // memo-ize throttled function
   const throttledFetch = useMemo(() => throttle(callback, 5000), [])
+=======
+       throttledUpdateStorage(items);
+   }
+    setResumeSections(items?.map((databaseId) => {
+        const { header, bullets } = findSection(databaseId, sections);
+        return <ResumeSection key={databaseId} sectionId={databaseId} header={header} bullets={bullets} />
+    }));
+  //  }
+   
+  }, [items, sections, currentResume])
+  
+  // post updated items list to local storage
+  const updateStorage = (items: string[]) => {
+    // send items to storage
+    patchGrids(items);
+  };
+
+  // memo-ize throttled function
+  const throttledUpdateStorage = useMemo(() => throttle(updateStorage, 5000), [])
+>>>>>>> dev
 
   
   function handleDragEnd(event: any) {
@@ -98,19 +145,35 @@ export default function ResumeContainer() {
     // iterate over sections array and find matching componentId
     let section: SectionType;
     for (const entry of sections) {
+<<<<<<< HEAD
       if (entry.databaseId == id) section = entry;
+=======
+      if (entry.sectionId == id) section = entry;
+>>>>>>> dev
       // break;
     }
     return section;
   }
 
   return (
+<<<<<<< HEAD
     <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'><h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <SortableContext items={items}>
         {resumeSections}
       </SortableContext>
     </DndContext>
+=======
+    <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'>
+      <h3>{currentResume.title}</h3>
+      <h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <SortableContext items={items}>
+          {resumeSections}
+        </SortableContext>
+      </DndContext>
+      <CreateResumeButton />
+>>>>>>> dev
     </div>
   );
 }

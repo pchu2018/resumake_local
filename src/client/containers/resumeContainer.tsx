@@ -1,12 +1,15 @@
 import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
-import {arrayMove, SortableContext, useSortable} from '@dnd-kit/sortable';
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import { useState, useEffect, useRef, useMemo} from 'react';
+import { useSelector } from 'react-redux';
+// internal imports
 import { throttle } from '../../utils';
 import ResumeSection from '../components/ResumeSection';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import CreateResumeButton from '../components/CreateResumeButton';
+import { RootState } from '../redux/store';
 import { SectionType } from '../../../types';
+import { patchGrids } from '../../api/storageApi';
 
 
 export default function ResumeContainer() {
@@ -25,62 +28,37 @@ export default function ResumeContainer() {
 
   const isInitialMount = useRef(true);
   // access resume id by initial state -> current resume 
-  const { currentResume, userId, currentGrids, profile } = useSelector((state:RootState) => state.initialState);
+  const { currentResume, profile } = useSelector((state:RootState) => state.initialState);
   
-  // initializing items for sortable context
+  // initializing items for sortable context -> update context when currentGrids is changed
   useEffect(() => {    
-    const componentIds = currentGrids.map(x => x.componentId)
+    const componentIds = currentResume.currentGrids
     setItems(componentIds);
-    console.log('setting items to ', items);
-  },[currentGrids])
+  }, [currentResume])
 
-  // throttle for update reumse
+  // throttle for update resume
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
    } else {
-       // Your useEffect code here to be run on update
-       throttledFetch(items);
+       throttledUpdateStorage(items);
    }
-   // generate resumeSections
-   console.log('setting items to ', items);
-  //  if (sections.length && currentGrids.length) {
-    setResumeSections(items.map((databaseId) => {
-      console.log('sections', sections, 'currentGrids', currentGrids);
-
-        console.log('in setResumeSections ',databaseId)
+    setResumeSections(items?.map((databaseId) => {
         const { header, bullets } = findSection(databaseId, sections);
-        return <ResumeSection key={databaseId} databaseId={databaseId} header={header} bullets={bullets} />
-
+        return <ResumeSection key={databaseId} sectionId={databaseId} header={header} bullets={bullets} />
     }));
   //  }
    
-  }, [items, sections, currentGrids])
+  }, [items, sections, currentResume])
   
-  // post updates to api
-  const callback = (items: string[]) => {
-    // fetch to update all the grids in the resume
-    const updateGrid = {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        // query by resume id to update the timestamp
-        resumeId: currentResume?.resumeId,
-        grids: items,
-      }),
-    };
-
-    // fetch(`/api/grid`, updateGrid).then((response) => {
-    //   if (response.status === 200) {
-    //     console.log(`update grid successfully`)
-    //   }
-    // });
+  // post updated items list to local storage
+  const updateStorage = (items: string[]) => {
+    // send items to storage
+    patchGrids(items);
   };
 
   // memo-ize throttled function
-  const throttledFetch = useMemo(() => throttle(callback, 5000), [])
+  const throttledUpdateStorage = useMemo(() => throttle(updateStorage, 5000), [])
 
   
   function handleDragEnd(event: any) {
@@ -98,19 +76,22 @@ export default function ResumeContainer() {
     // iterate over sections array and find matching componentId
     let section: SectionType;
     for (const entry of sections) {
-      if (entry.databaseId == id) section = entry;
+      if (entry.sectionId == id) section = entry;
       // break;
     }
     return section;
   }
 
   return (
-    <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'><h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <SortableContext items={items}>
-        {resumeSections}
-      </SortableContext>
-    </DndContext>
+    <div className='min-w-2xl max-w-3xl mx-auto p-4 border-2 border-lightgrey rounded-lg shadow-inner'>
+      <h3>{currentResume.title}</h3>
+      <h2 className='text-xl font-semibold mb-1'>{profile.name}</h2>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <SortableContext items={items}>
+          {resumeSections}
+        </SortableContext>
+      </DndContext>
+      <CreateResumeButton />
     </div>
   );
 }

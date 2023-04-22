@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { ProfileType } from "../../../types";
-import { updateProfile } from "../actions/actions";
-import { postProfile } from "../api/storageApi";
+import { updateProfile } from "../redux/actions/actions";
+import { postProfile } from "../../api/storageApi";
 
 interface ProfileProps {
   info: ProfileType

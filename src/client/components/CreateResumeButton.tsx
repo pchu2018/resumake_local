@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 
 import { generateResumeId } from "../../utils";
 import { ResumeType } from "../../../types";
-import { createResume } from "../actions/actions";
-import { postResume } from "../api/storageApi";
+import { createResume } from "../redux/actions/actions";
+import { postResume } from "../../api/storageApi";
 
 export default function CreateResumeButton() {
   const dispatch = useDispatch();

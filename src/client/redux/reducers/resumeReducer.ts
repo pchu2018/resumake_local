@@ -2,7 +2,7 @@
 import { createReducer, current } from '@reduxjs/toolkit';
 // internal import
 import * as actions from '../actions/actions';
-import { ResumeType, SectionType, GridType, UserData } from '../../../types';
+import { ResumeType, SectionType, GridType, UserData } from '../../../../types';
 
 const initialState: UserData = {
   currentResume: {resumeId: '1', title: 'My Resume', lastModified: new Date().toString(), currentGrids: [  ]},

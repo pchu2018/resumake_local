@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // internal import
 import { GridType } from '../../../types';
-import { useSection } from '../actions/actions';
-import { useResumeSection } from '../api/storageApi';
+import { useSection } from '../redux/actions/actions';
+import { useResumeSection } from '../../api/storageApi';
 
 export default function AddSectiontoResume({sectionId}: {sectionId: string}) {
   const dispatch = useDispatch();

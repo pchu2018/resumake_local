@@ -1,5 +1,5 @@
-import SectionContainer from "./sectionContainer";
-import ResumeContainer from "./resumeContainer";
+import SectionContainer from "./SectionContainer";
+import ResumeContainer from "./ResumeContainer";
 
 export default function MasterEditorContainer() {
   return (

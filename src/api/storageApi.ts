@@ -1,5 +1,5 @@
-import { setStorageString, getStorageParse } from "../../utils";
-import { UserData, ResumeType, ProfileType, GridType, SectionType } from "../../../types";
+import { setStorageString, getStorageParse } from "../utils";
+import { UserData, ResumeType, ProfileType, GridType, SectionType } from "../../types";
 
 export function getInitialState(): UserData {
     // collect initial data from localstorage

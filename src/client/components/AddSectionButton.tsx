@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { createSection } from '../actions/actions';
-import { postSection } from '../api/storageApi';
+import { createSection } from '../redux/actions/actions';
+import { postSection } from '../../api/storageApi';
 import { generateSectionId } from '../../utils';
 import { SectionType } from '../../../types';
 

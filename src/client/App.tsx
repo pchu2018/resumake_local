@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { initializeStore } from './actions/actions';
-import { getInitialState } from './api/storageApi';
+import { initializeStore } from './redux/actions/actions';
+import { getInitialState } from '../api/storageApi';
 
-import MasterEditorContainer from "./containers/masterEditorContainer";
+import MasterEditorContainer from "./containers/EditorContainer";
 
 export default function App() {
   const dispatch = useDispatch();

@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 import { throttle } from '../../utils';
 import ResumeSection from '../components/ResumeSection';
 import CreateResumeButton from '../components/CreateResumeButton';
-import { RootState } from '../store';
+import { RootState } from '../redux/store';
 import { SectionType } from '../../../types';
-import { patchGrids } from '../api/storageApi';
+import { patchGrids } from '../../api/storageApi';
 
 
 export default function ResumeContainer() {

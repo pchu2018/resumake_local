@@ -3,8 +3,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // internal imports
 import { SectionType } from '../../../types';
-import { updateSection } from '../actions/actions';
-import { patchSection } from '../api/storageApi';
+import { updateSection } from '../redux/actions/actions';
+import { patchSection } from '../../api/storageApi';
 // components
 import AddSectiontoResume from './AddSectiontoResume';
 

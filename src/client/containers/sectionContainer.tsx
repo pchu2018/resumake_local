@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SectionType } from '../../../types';
-import { RootState } from '../store';
-import { updateProfile } from '../actions/actions';
+import { RootState } from '../redux/store';
+import { updateProfile } from '../redux/actions/actions';
 
 import AddSectionButton from '../components/AddSectionButton';
 import Section from '../components/Section';

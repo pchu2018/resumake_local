@@ -1,6 +1,6 @@
 // import actionType constants
 import { createAction } from '@reduxjs/toolkit';
-import {ResumeType, SectionType, UserData, ProfileType, GridType} from '../../../types';
+import {ResumeType, SectionType, UserData, ProfileType, GridType} from '../../../../types';
 import { useSectionPayload } from './actionTypes';
 
 // actionTypes need 

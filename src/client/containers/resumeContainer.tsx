@@ -2,7 +2,7 @@ import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import { useState, useEffect, useRef, useMemo} from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../redux/hooks';
 // internal imports
 import { throttle } from '../../utils';
 import ResumeSection from '../components/ResumeSection';
@@ -14,7 +14,7 @@ import { patchGrids } from '../../api/storageApi';
 
 export default function ResumeContainer() {
   // sections should update when store is dispatched to
-  const sections = useSelector((state:RootState) => state.initialState.sections);
+  const sections = useAppSelector(state => state.initialState.sections);
   const [items, setItems] = useState([]);
   const [resumeSections, setResumeSections] = useState([]);
   
@@ -28,7 +28,7 @@ export default function ResumeContainer() {
 
   const isInitialMount = useRef(true);
   // access resume id by initial state -> current resume 
-  const { currentResume, profile } = useSelector((state:RootState) => state.initialState);
+  const { currentResume, profile } = useAppSelector(state => state.initialState);
   
   // initializing items for sortable context -> update context when currentGrids is changed
   useEffect(() => {    
